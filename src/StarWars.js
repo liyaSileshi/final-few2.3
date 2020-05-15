@@ -6,9 +6,8 @@ class StarWars extends Component{
       super(props)
       this.state = {swData : null,
                     isLoading: false, // to check if data is still being loaded or already loaded
-                    num: 1,
+                    num: undefined,
                     characters: [],
-                    homeworld : {},
                     }
   }
     
@@ -18,11 +17,9 @@ class StarWars extends Component{
       const json = await res.json()     
       
       const response = await fetch(json.homeworld)
-      const homejson = await response.json()
-      
+      const homejson = await response.json() 
       this.setState({ swData: json, isLoading: false })
       this.state.swData.homeworld = homejson
-      console.log(this.state)
 
     } catch(err) {
         this.setState({ swData: null }) 
@@ -35,7 +32,6 @@ class StarWars extends Component{
   handleSubmit(e) {
     this.setState({isLoading : true})
     e.preventDefault();
-    console.log(this.state.num)
     const url = `https://swapi.dev/api/people/${this.state.num}`
     this.getStarWarsData(url)
   }
@@ -46,7 +42,6 @@ class StarWars extends Component{
       // If there is no data return undefined
       return undefined
     }
-    console.log(swData)
     return <div>
             <p>{swData.name}</p>
             <p>Hair color: {swData.hair_color}</p>
@@ -54,7 +49,6 @@ class StarWars extends Component{
             <p>Height: {swData.height}</p>
             <p>Mass: {swData.mass}</p>
         </div>
-
   }
 
   checkRender() {
@@ -71,11 +65,8 @@ class StarWars extends Component{
   }
 
   renderSaved() {
-    const {homeworld} = this.state
-    console.log(homeworld)
     let {characters} = this.state
     const arrChar = characters.map((person) => {
-        console.log(person.name)
         return (
         <div>
             <h2>{person.name}</h2>
@@ -94,7 +85,6 @@ class StarWars extends Component{
             <p>Terrain: {person.homeworld.terrain}</p>
         </div>
         )})
-    console.log(arrChar)
     return arrChar
     }
 
