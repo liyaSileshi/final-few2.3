@@ -16,11 +16,12 @@ class StarWars extends Component{
     try{
       const res = await fetch(url)
       const json = await res.json()     
-      this.setState({ swData: json, isLoading: false })
+      
       const response = await fetch(json.homeworld)
       const homejson = await response.json()
-      this.setState({homeworld : homejson})
-    //   console.log(json.homeworld)
+      
+      this.setState({ swData: json, isLoading: false })
+      this.state.swData.homeworld = homejson
       console.log(this.state)
 
     } catch(err) {
@@ -82,15 +83,15 @@ class StarWars extends Component{
             <p>Eye color: {person.eye_color}</p>
             <p>Height: {person.height}</p>
             <p>Mass: {person.mass}</p>
-            <p>Homeworld: {homeworld.name}</p>
-            <p>Rotation period: {homeworld.rotation_period}</p>
-            <p>Climate: {homeworld.climate}</p>
-            <p>Diameter: {homeworld.diameter}</p>
-            <p>Gravity: {homeworld.gravity}</p>
-            <p>Orbital period: {homeworld.orbital_period}</p>
-            <p>Population: {homeworld.population}</p>
-            <p>Surface water: {homeworld.surface_water}</p>
-            <p>Terrain: {homeworld.terrain}</p>
+            <p>Homeworld: {person.homeworld.name}</p>
+            <p>Rotation period: {person.homeworld.rotation_period}</p>
+            <p>Climate: {person.homeworld.climate}</p>
+            <p>Diameter: {person.homeworld.diameter}</p>
+            <p>Gravity: {person.homeworld.gravity}</p>
+            <p>Orbital period: {person.homeworld.orbital_period}</p>
+            <p>Population: {person.homeworld.population}</p>
+            <p>Surface water: {person.homeworld.surface_water}</p>
+            <p>Terrain: {person.homeworld.terrain}</p>
         </div>
         )})
     console.log(arrChar)
